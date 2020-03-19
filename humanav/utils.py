@@ -20,6 +20,10 @@ import numpy as np, os, time
 import logging, hashlib
 from contextlib import contextmanager
 
+def mkdir_if_missing(dirname):
+  if not os.path.exists(dirname):
+    os.makedirs(dirname)
+
 def get_time_str():
   return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
 
