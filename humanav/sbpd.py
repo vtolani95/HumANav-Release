@@ -167,7 +167,7 @@ class StanfordBuildingParserDataset(Loader):
     sets['all'] = sorted(list(set(train + val + test)))
     return sets[split_name]
 
-  def get_random_human_gender_texture_and_body_shape(self, rng):
+  def get_random_human_gender_texture_and_body_shape(self, rng, load_materials=True):
         # Sample a random gender for the human
         genders = ['male', 'female']
         gender = rng.choice(genders)
@@ -175,7 +175,7 @@ class StanfordBuildingParserDataset(Loader):
         # Sample a random set of materials for the human (i.e. skin/hair color, clothing, etc.)
         human_materials = renderer.HumanShape.get_random_materials(self.surreal_params.texture_dir,
                                                                    self.surreal_params.mode,
-                                                                   gender, rng)
+                                                                   gender, rng, load_materials=load_materials)
 
         # Sample a random body shape
         if self.surreal_params.mode == 'train':

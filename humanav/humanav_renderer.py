@@ -83,6 +83,34 @@ class HumANavRenderer():
             assert(False)
         return np.array(imgs)
 
+    def load_random_human_identity(self, identity_rng):
+        """
+        Sample a new human identity, but don't load it into
+        memory.
+        """
+        human_gender, human_texture, body_shape = \
+                self.d.get_random_human_gender_texture_and_body_shape(identity_rng, load_materials=False)
+        identity = {'human_gender': human_gender,
+                    'human_texture': human_texture,
+                    'body_shape': body_shape}
+        return identity
+
+    def add_human_with_known_identity_at_position_with_speed(self, pos_3, speed, mesh_rng, identity):
+        human_gender = identity['human_gender']
+        human_texture = identity['human_texture']
+        body_shape = identity['body_shape']
+
+        # Load the human texture into memory
+        human_texture = [sr.HumanShape._load_materials_from_file(human_texture[0], 1.0)]
+
+        # Load the human into the scene
+        self.building.load_human_into_scene(self.d, pos_3, speed,
+                                            human_gender, human_texture,
+                                            body_shape, mesh_rng)
+        human_mesh_params = self.building.human_mesh_info
+        return human_mesh_params
+
+
     def add_human_at_position_with_speed(self, pos_3, speed, identity_rng, mesh_rng, only_sample_human_identity=False):
         """
         Inserts a human mesh at [x, y, theta]

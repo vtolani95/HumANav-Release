@@ -176,7 +176,7 @@ class HumanShape(Shape):
         self.scene = scene
  
     @staticmethod
-    def get_random_materials(texture_dir, dataset_mode, gender, rng, materials_scale=1.0):
+    def get_random_materials(texture_dir, dataset_mode, gender, rng, materials_scale=1.0, load_materials=True):
         """
         For a fixed gender, sample a random set of human materials (i.e. skin and
         clothing.). This is useful upstream as it allows for fixing a human look (texture)
@@ -196,7 +196,10 @@ class HumanShape(Shape):
         file_names.sort()
         file_name = os.path.join(gender_dir, rng.choice(file_names))
 
-        materials = [HumanShape._load_materials_from_file(file_name, materials_scale)]
+        if load_materials:
+            materials = [HumanShape._load_materials_from_file(file_name, materials_scale)]
+        else:
+            materials = [file_name]
         return materials
 
 class SwiftshaderRenderer():
