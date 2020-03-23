@@ -95,7 +95,7 @@ class HumANavRenderer():
                     'body_shape': body_shape}
         return identity
 
-    def add_human_with_known_identity_at_position_with_speed(self, pos_3, speed, mesh_rng, identity):
+    def add_human_with_known_identity_at_position_with_speed(self, pos_3, speed, mesh_rng, identity, allow_repeat_humans=False):
         human_gender = identity['human_gender']
         human_texture = identity['human_texture']
         body_shape = identity['body_shape']
@@ -106,10 +106,10 @@ class HumANavRenderer():
         # Load the human into the scene
         self.building.load_human_into_scene(self.d, pos_3, speed,
                                             human_gender, human_texture,
-                                            body_shape, mesh_rng)
+                                            body_shape, mesh_rng,
+                                            allow_repeat_humans=allow_repeat_humans)
         human_mesh_params = self.building.human_mesh_info
         return human_mesh_params
-
 
     def add_human_at_position_with_speed(self, pos_3, speed, identity_rng, mesh_rng, only_sample_human_identity=False):
         """

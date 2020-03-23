@@ -1,2 +1,5 @@
 humanav.egg-info/
 *.pyc
+graveyard/
+server/outdir
+tmp/

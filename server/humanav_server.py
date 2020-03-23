@@ -11,12 +11,15 @@ import shutil
 
 
 class HumANavServer(object):
+    server = None
+
     def __init__(self):
         self.p = create_params()
+
         self.r = HumANavRenderer.get_renderer(self.p)
         self.fig = plt.figure(figsize=(10, 10), frameon=False)
         self.ax = self.fig.add_axes([0, 0, 1, 1])
-        self.dx = .05 #5cm
+        self.dx = .05  # 5cm
 
         self.mesh_rng = np.random.RandomState()
         self.identity_rng = np.random.RandomState()
@@ -28,7 +31,7 @@ class HumANavServer(object):
 
         self._outdir = './outdir'
 
-        self.max_number_subdirs = 3
+        self.max_number_subdirs = 15
 
     def mkdir_if_missing(self, dirname):
         if not os.path.exists(dirname):
@@ -87,7 +90,7 @@ class HumANavServer(object):
             self.mesh_rng.seed(seed)
 
             # Sample a new human mesh and load it into the environment
-            human_mesh_params = self.r.add_human_with_known_identity_at_position_with_speed(human_pos_3, human_speed, self.mesh_rng, human_identity)
+            human_mesh_params = self.r.add_human_with_known_identity_at_position_with_speed(human_pos_3, human_speed, self.mesh_rng, human_identity, allow_repeat_humans=True)
 
         # Render the 3 image modalities
         robot_pos_13 = robot_pos_3[None]

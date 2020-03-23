@@ -132,9 +132,10 @@ class Building():
 
       pos_3 = np.array([xy_offset_map[0], xy_offset_map[1], pos_3[2]])
       return pos_3
-
+  
   def load_human_into_scene(self, dataset, pos_3, speed, gender,
-                            human_materials, body_shape, rng, dedup_tbo=False):
+                            human_materials, body_shape, rng, dedup_tbo=False,
+                            allow_repeat_humans=False):
     """
     Load a 'gendered' human mesh with 'body shape' and texture, 'human_materials',
     into a building at 'pos_3' with 'speed' in the static building.
@@ -144,7 +145,7 @@ class Building():
     # Load the human mesh
     shapess, center_pos_3, human_mesh_info = \
             dataset.load_random_human(speed, gender, human_materials, body_shape, rng)
-    
+
     self.human_mesh_info = human_mesh_info
 
     # Make sure the human's feet are actually on the ground in SBPD
@@ -165,7 +166,7 @@ class Building():
     pos_3 = self._traversible_world_to_vertex_world(pos_3)
     shapess[0].meshes[0].vertices = self._transform_to_world(shapess[0].meshes[0].vertices, pos_3)
 
-    self.renderer_entitiy_ids += self.r_obj.load_shapes(shapess, dedup_tbo)
+    self.renderer_entitiy_ids += self.r_obj.load_shapes(shapess, dedup_tbo, allow_repeat_humans=allow_repeat_humans)
 
     # Update The Traversible
     if dataset.surreal_params.compute_human_traversible:

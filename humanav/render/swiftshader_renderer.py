@@ -399,6 +399,7 @@ class SwiftshaderRenderer():
         tbo = entity['tbo']
         num = entity['num']
 
+
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
         glVertexAttribPointer(self.egl_mapping['vertexs'], 3, GL_FLOAT, GL_FALSE, 20, ctypes.c_void_p(0))
         glVertexAttribPointer(self.egl_mapping['vertexs_tc'], 2, GL_FLOAT, GL_FALSE, 20, ctypes.c_void_p(12))
@@ -528,14 +529,15 @@ class SwiftshaderRenderer():
     
     return num, vbo, tbo
 
-  def load_shapes(self, shapes, dedup_tbo=False):
+  def load_shapes(self, shapes, dedup_tbo=False, allow_repeat_humans=False):
     entities = self.entities
     entity_ids = []
     dedup_dict = {}
     for i, shape in enumerate(shapes):
       for j in range(len(shape.meshes)):
         name = shape.meshes[j].name
-        assert name not in entities, '{:s} entity already exists.'.format(name)
+        if not (allow_repeat_humans and 'human' in name):
+            assert name not in entities, '{:s} entity already exists.'.format(name)
         if shape.materials[j][0] in dedup_dict and dedup_tbo:
           tbo = dedup_dict[shape.materials[j][0]]
           # logging.error('dedup: %s', shape.materials[j][0])
