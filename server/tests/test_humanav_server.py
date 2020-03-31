@@ -21,7 +21,7 @@ def test_humanav_server():
     server.render_images(robot_pos_3, human_pos_3, human_speed, human_identity, mesh_seed, human_visible=False)
 
 def test_humanav_webserver():
-    base_url = 'http://localhost:5000'
+    base_url = 'http://localhost:8080'
 
     # Set the robot and human states
     robot_pos_3 = np.array([7.5, 12., -1.3])
@@ -30,15 +30,14 @@ def test_humanav_webserver():
     human_speed = .7
 
     data = {'identity_seed': 48}
-    human_identity = requests.get('{:s}/get_new_human_identity'.format(base_url), json=data).json()
+    #human_identity = requests.get('{:s}/get_new_human_identity'.format(base_url), json=data).json()
 
     mesh_seed = 20
     data = {'robot_pos_3': robot_pos_3.tolist(),
             'human_pos_3': human_pos_3.tolist(),
             'human_speed': human_speed,
-            'human_identity': human_identity,
-            'mesh_seed': mesh_seed,
-            'human_visible': True}
+            'identity_seed': 48,
+            'mesh_seed': mesh_seed}
 
     img_urls = requests.get('{:s}/render_images'.format(base_url), json=data).json()
 
@@ -47,7 +46,6 @@ def test_humanav_webserver():
     data['human_identity']['body_shape'] = 519
     data['human_identity']['gender']  = 'female'
     data['mesh_seed'] = 22
-    data['human_visible'] = True
 
     img_urls = requests.get('{:s}/render_images'.format(base_url), json=data).json()
 
@@ -60,13 +58,11 @@ def test_humanav_webserver():
             'human_pos_3': human_pos_3.tolist(),
             'human_speed': human_speed,
             'human_identity': human_identity,
-            'mesh_seed': mesh_seed,
-            'human_visible': True}
+            'mesh_seed': mesh_seed}
 
     img_urls = requests.get('{:s}/render_images'.format(base_url), json=data).json()
 
     # Render an image without the human
-    data['human_visible'] = False
     img_urls = requests.get('{:s}/render_images'.format(base_url), json=data).json()
 
     # Render the original human
@@ -78,8 +74,7 @@ def test_humanav_webserver():
             'human_pos_3': human_pos_3.tolist(),
             'human_speed': human_speed,
             'human_identity': human_identity,
-            'mesh_seed': mesh_seed,
-            'human_visible': True}
+            'mesh_seed': mesh_seed}
 
     img_urls = requests.get('{:s}/render_images'.format(base_url), json=data).json()
 
