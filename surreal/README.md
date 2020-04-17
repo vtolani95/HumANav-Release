@@ -42,10 +42,26 @@ You need to download [Blender](http://download.blender.org/release/) and install
 # Install blender 2.78
 wget http://download.blender.org/release/Blender2.78/blender-2.78a-linux-glibc211-x86_64.tar.bz2
 
+# Un-TAR Blender
+tar xjf blender-2.78a-linux-glibc211-x86_64.tar.bz2 
+
+# Export the BLENDER_PATH
+export BLENDER_PATH='/path/to/blender/blender-2.78-linux-glibc219-x86_64'
+
 # Install pip
-/blenderpath/2.78/python/bin/python3.5m get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py
+$BLENDER_PATH/2.78/python/bin/python3.5m get-pip.py
+
+### Note installation of pip may fail in Blender 2.78a (due to openssl issues)
+# If this happens Blender 2.79a should work. You can install it from here.
+wget https://download.blender.org/release/Blender2.79/blender-2.79a-linux-glibc219-x86_64.tar.bz2
+# Make sure you have libglu1
+sudo apt-get install libglu1
+
+#Delete any default numpy installations
+
 # Install scipy
-/blenderpath/2.78/python/bin/python3.5m pip install scipy
+$BLENDER_PATH/2.78/python/bin/python3.5m -m pip install scipy
 ```
 
 `get-pip.py` is downloaded from [pip](https://pip.pypa.io/en/stable/installing/). Replace the `blenderpath` with your own and set `BLENDER_PATH`.
@@ -54,11 +70,9 @@ wget http://download.blender.org/release/Blender2.78/blender-2.78a-linux-glibc21
 
 ## 3. Custom Instructions for HumANav Data Generation
 
-##### Export the Blender path
-```
-export BLENDER_PATH='/home/ext_drive/somilb/data/surreal/blender-2.78-linux-glibc219-x86_64'
-```
+### Make sure your data is organized correctly
 
+### Edit the config file
 
 ### Test the installation
 ```
