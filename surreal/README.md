@@ -76,7 +76,7 @@ $BLENDER_PATH/2.78/python/bin/python3.5m -m pip install scipy
 
 ### Test the installation
 ```
-TODO: put something here
+$BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx 2 --ishape 0 --stride 59 --gender female --body_shape 1000
 ```
 
 ### Generate the Human Mesh Models for HumANav
