@@ -482,7 +482,7 @@ def main():
     
     smpl_data_folder = params['smpl_data_folder']
     smpl_data_filename = params['smpl_data_filename']
-    bg_path = params['bg_path']
+    #bg_path = params['bg_path']
     resy = params['resy']
     resx = params['resx']
     clothing_option = params['clothing_option'] # grey, nongrey or all
@@ -491,7 +491,7 @@ def main():
     output_types = params['output_types']
     stepsize = params['stepsize']
     clipsize = params['clipsize']
-    openexr_py2_path = params['openexr_py2_path']
+    #openexr_py2_path = params['openexr_py2_path']
 
     # compute number of cuts
     #import pdb; pdb.set_trace()
@@ -558,12 +558,12 @@ def main():
     scene.cycles.shading_system = True
     scene.use_nodes = True
 
-    log_message("Listing background images")
-    bg_names = join(bg_path, '%s_img.txt' % idx_info['use_split'])
-    nh_txt_paths = []
-    with open(bg_names) as f:
-        for line in f:
-            nh_txt_paths.append(join(bg_path, line))
+    #log_message("Listing background images")
+    #bg_names = join(bg_path, '%s_img.txt' % idx_info['use_split'])
+    #nh_txt_paths = []
+    #with open(bg_names) as f:
+    #    for line in f:
+    #        nh_txt_paths.append(join(bg_path, line))
 
     # grab clothing names
     log_message("clothing: %s" % clothing_option)
@@ -582,16 +582,16 @@ def main():
     cloth_img = bpy.data.images.load(cloth_img_name)
 
     # random background
-    bg_img_name = choice(nh_txt_paths)[:-1]
-    bg_img = bpy.data.images.load(bg_img_name)
+    #bg_img_name = choice(nh_txt_paths)[:-1]
+    #bg_img = bpy.data.images.load(bg_img_name)
 
     log_message("Loading parts segmentation")
     beta_stds = np.load(join(smpl_data_folder, ('%s_beta_stds.npy' % gender)))
     
-    log_message("Building materials tree")
-    mat_tree = bpy.data.materials['Material'].node_tree
-    create_sh_material(mat_tree, sh_dst, cloth_img)
-    res_paths = create_composite_nodes(scene.node_tree, params, img=bg_img, idx=idx)
+    #log_message("Building materials tree")
+    #mat_tree = bpy.data.materials['Material'].node_tree
+    #create_sh_material(mat_tree, sh_dst, cloth_img)
+    #res_paths = create_composite_nodes(scene.node_tree, params, img=bg_img, idx=idx)
 
     log_message("Loading smpl data")
     smpl_data = np.load(join(smpl_data_folder, smpl_data_filename))
@@ -610,7 +610,8 @@ def main():
     
     log_message("Creating materials segmentation")
     # create material segmentation
-    if segmented_materials:
+    if False:
+    #if segmented_materials:
         materials = create_segmentation(ob, params)
         prob_dressed = {'leftLeg':.5, 'leftArm':.9, 'leftHandIndex1':.01,
                         'rightShoulder':.8, 'rightHand':.01, 'neck':.01,
@@ -671,11 +672,11 @@ def main():
         mkdir_safe(output_path)
 
     # spherical harmonics material needs a script to be loaded and compiled
-    scs = []
-    for mname, material in materials.items():
-        scs.append(material.node_tree.nodes['Script'])
-        scs[-1].filepath = sh_dst
-        scs[-1].update()
+    #scs = []
+    #for mname, material in materials.items():
+    #    scs.append(material.node_tree.nodes['Script'])
+    #    scs[-1].filepath = sh_dst
+    #    scs[-1].update()
 
     rgb_dirname = name.replace(" ", "") + '_c%04d.mp4' % (ishape + 1)
     rgb_path = join(tmp_path, rgb_dirname)
@@ -857,7 +858,7 @@ def compute_human_pos_3(scene, vsegm, ob):
     feet.
 
     This information can be used to canonically center the human
-    (i.e. in the SBPD dataset)
+    (i.e. in the HumANav dataset)
     """
     me = ob.to_mesh(scene, True, 'PREVIEW')
     vrtxs = np.array(me.vertices.items())

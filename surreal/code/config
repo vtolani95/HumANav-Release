@@ -1,0 +1,15 @@
+[SYNTH_DATA]
+tmp_path           = '/home/somil/HumANav/surreal/data_gen' 
+output_path        = '/home/somil/HumANav/surreal/data_gen/output' # output folder
+
+output_types       = {'depth':False, 'fg':True, 'gtflow':False, 'normal':False, 'segm':True, 'vblur':False}
+
+smpl_data_folder   = '/home/somil/HumANav/surreal/download/SURREAL/smpl_data'
+smpl_data_filename = 'smpl_data.npz'
+clothing_option    = 'all' # grey, nongrey or all
+
+resy     = 224  # width
+resx     = 224  # height
+stepsize = 4    # subsampling MoCap sequence by selecting every 4th frame
+stride   = 50   # percent overlap between clips 
+clipsize = 20 # nFrames in each clip, where the random parameters are fixed
