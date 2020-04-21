@@ -8,12 +8,7 @@ In order to download SURREAL dataset, you need to accept the license terms. The 
 
 https://www.di.ens.fr/willow/research/surreal/data/
 
-Once you receive the credentials to download the dataset, you will have a personal username and password. Use these either to download the dataset excluding optical flow data from [here: (SURREAL_v1.tar.gz, 86GB)](https://lsh.paris.inria.fr/SURREAL/SURREAL_v1.tar.gz) or download individual files with the `download/download_surreal.sh` script as follows:
-
-``` shell
-./download_surreal.sh /path/to/dataset yourusername yourpassword
-```
-
+Once you receive the credentials to download the dataset, you will have a personal username and password. 
 
 ## 2. Create your own synthetic data
 ### 2.1. Preparation
