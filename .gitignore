@@ -2,3 +2,4 @@ humanav.egg-info/
 *.pyc
 server/outdir
 tmp/
+*.swp

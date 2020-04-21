@@ -1,6 +1,9 @@
 [SYNTH_DATA]
-tmp_path           = '/home/somil/HumANav/surreal/data_gen' 
-output_path        = '/home/somil/HumANav/surreal/data_gen/output' # output folder
+
+# Note: tmp_path and output_path are not actually used
+# so you can leave them as ''
+tmp_path           = '' 
+output_path        = '' # output folder
 
 output_types       = {'depth':False, 'fg':True, 'gtflow':False, 'normal':False, 'segm':True, 'vblur':False}
 

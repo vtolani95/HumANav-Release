@@ -264,6 +264,7 @@ def main():
                         help='gender {male, female}')
     parser.add_argument('--body_shape_idx', type=int,
                         help='body shape idx (height, weight etc.) < 1682 for female, < 1360 for male)')
+    parser.add_argument('--outdir', type=str, help='out directory')
 
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
    
@@ -272,6 +273,7 @@ def main():
     stride = args.stride
     gender = args.gender
     body_shape_idx = args.body_shape_idx
+    outdir = args.outdir
 
     log_message("input idx: %d" % idx)
     log_message("input ishape: %d" % ishape)
@@ -343,10 +345,6 @@ def main():
     if exists(tmp_path) and tmp_path != "" and tmp_path != "/":
         os.system('rm -rf %s' % tmp_path)
 
-    # create tmp directory
-    if not exists(tmp_path):
-        mkdir_safe(tmp_path)
-
     # >> don't use random generator before this point <<
 
     # initialize RNG with seeds from sequence id
@@ -362,13 +360,6 @@ def main():
         params['vblur_factor'] = vblur_factor
     
     log_message("Setup Blender")
-
-    # create copy-spher.harm. directory if not exists
-    #sh_dir = join(tmp_path, 'spher_harm')
-    #if not exists(sh_dir):
-    #    mkdir_safe(sh_dir)
-    #sh_dst = join(sh_dir, 'sh_%02d_%05d.osl' % (runpass, idx))
-    #os.system('cp spher_harm/sh.osl %s' % sh_dst)
 
     genders = {0: 'female', 1: 'male'}
 
@@ -438,10 +429,6 @@ def main():
     scene.objects.active = arm_ob
     orig_trans = np.asarray(arm_ob.pose.bones[obname+'_Pelvis'].location).copy()
 
-    # create output directory
-    if not exists(output_path):
-        mkdir_safe(output_path)
-
     data = cmu_parms[name]
     
     fbegin = ishape*stepsize*stride
@@ -506,7 +493,7 @@ def main():
         vsegm = load(f)
 
     # Where the meshes and centering information is stored
-    base_dir = 'visual_mpc_human_meshes_with_velocity_information_v3'
+    base_dir = outdir
     vs = np.arange(0, 1.85, .2)
     velocity_folders = make_velocity_dirs(base_dir, vs)
     pose_ishape_stride_str = 'pose_{:d}_ishape_{:d}_stride_{:d}'.format(idx, ishape, stride)
