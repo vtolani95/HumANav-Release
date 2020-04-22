@@ -58,15 +58,9 @@ wget https://download.blender.org/release/Blender2.79/blender-2.79a-linux-glibc2
 # Make sure you have libglu1
 sudo apt-get install libglu1
 
-#Delete any default numpy installations
-
 # Install scipy
 $BLENDER_PATH/2.78/python/bin/python3.5m -m pip install scipy
 ```
-
-`get-pip.py` is downloaded from [pip](https://pip.pypa.io/en/stable/installing/). Replace the `blenderpath` with your own and set `BLENDER_PATH`.
-
-*Known problem: Blender2.78a has problems with pip. You can try with new versions of Blender. Otherwise, you can install the dependencies such as `scipy` to a new python3.5 environment and add this environment's `site-packages` to `PYTHONPATH` before running Blender.*
 
 ## 3. Custom Instructions for HumANav Data Generation
 
@@ -76,12 +70,13 @@ $BLENDER_PATH/2.78/python/bin/python3.5m -m pip install scipy
 
 ### Test the installation
 ```
-$BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx 2 --ishape 0 --stride 59 --gender female --body_shape 1000
+$BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx 2 --ishape 0 --stride 59 --gender female --body_shape 1000 --outdir test_human_mesh_generation
 ```
 
 ### Generate the Human Mesh Models for HumANav
-Note: Full data generation may take a few hours. 
+Note: Full data generation takes around ~7 hours.
 ```
 sh generate_meshes.sh
 ```
+Human meshes will be saved in /path/to/HumANav/surreal/code/human_meshes
 
