@@ -66,6 +66,10 @@ wget https://download.blender.org/release/Blender2.79/blender-2.79a-linux-glibc2
 ### Make sure your data is organized correctly
 
 ### Edit the config file
+In the directory /path/to/HumANav/surreal/code update the following line in config
+```
+smpl_data_folder   = '/path/to/HumANav/surreal/download/SURREAL/smpl_data'
+```
 
 ### Test the installation
 ```
@@ -91,6 +95,7 @@ test_human_mesh_generation/
                     - human_mesh_i.mtl
                     - human_mesh_i.obj
 ```
+The human_mesh_i.obj (mesh of the corresponding human body), and human_centering_info_i.pkl (information to canonically center and position each human) files will be used in the HumANav dataset.
 
 ### Generate the Human Mesh Models for HumANav
 Note: Full data generation takes around ~4 hours & 11 GB of space.
