@@ -71,9 +71,29 @@ wget https://download.blender.org/release/Blender2.79/blender-2.79a-linux-glibc2
 ```
 $BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx 2 --ishape 0 --stride 59 --gender female --body_shape 1000 --outdir test_human_mesh_generation
 ```
+The test should create the following directory structure:
+```
+test_human_mesh_generation/
+    - velocity_0.000_m_s/
+    - velocity_0.200_m_s/
+    - velocity_0.500_m_s/
+        - pose_2_ishape_0_stride_59/
+            - body_shape_1000/
+                - female/ # (here i is in [1, 2, 3])
+                    - human_centering_info_i.pkl
+                    - human_mesh_i.mtl
+                    - human_mesh_i.obj
+    - velocity_0.600_m_s/
+        - pose_2_ishape_0_stride_59/
+            - body_shape_1000/
+                - female/  # (here i is in [4, 5, 6, 7, 8, 18, 19])
+                    - human_centering_info_i.pkl 
+                    - human_mesh_i.mtl
+                    - human_mesh_i.obj
+```
 
 ### Generate the Human Mesh Models for HumANav
-Note: Full data generation takes around ~7 hours & 18 GB of space.
+Note: Full data generation takes around ~4 hours & 11 GB of space.
 ```
 sh generate_meshes.sh
 ```
