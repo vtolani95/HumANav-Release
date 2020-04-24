@@ -1,7 +1,7 @@
 import os
 
 base_dir = 'human_meshes'
-expected_meshes_filename = "expected_human_meshes.txt"
+expected_meshes_filename = "txt/expected_human_meshes.txt"
 
 def get_human_mesh_filenames():
     """

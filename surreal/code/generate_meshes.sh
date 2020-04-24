@@ -19,4 +19,8 @@ do
 	done
 done
 
+# Make sure the generated meshes match what is expected
 $BLENDER_PATH/blender -b -P verify_human_mesh_generation.py
+
+# Collect the relevant textures needed for the meshes
+$BLENDER_PATH/blender -b -P collect_human_meshes.py
