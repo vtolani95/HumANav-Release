@@ -3,3 +3,4 @@ humanav.egg-info/
 server/outdir
 tmp/
 *.swp
+*.DS_Store

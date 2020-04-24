@@ -46,6 +46,18 @@ part_match = {'root':'root', 'bone_00':'Pelvis', 'bone_01':'L_Hip', 'bone_02':'R
 
 part2num = {part:(ipart+1) for ipart,part in enumerate(sorted_parts)}
 
+# Map from the heuristically computed velocity to
+# a more visually realistic velocity (i.e. so the spread in the
+# humans legs is roughly correlated with its speed)
+
+    # 0.0 m/s -> 0.0 m/s (bin 0 -> bin 0)
+    # .2 & .4 m/s -> .2 m/s (bins 1, 2 -> bin 1)
+    # .6 m/s -> .5 m/s (bin 3 -> bin 2)
+    # .8 m/s -> .6 m/s (bin 4 -> bin 3)
+    # > .8 m/s -> N/A (We only keep speeds up to .6 m/s (after rebinning))
+
+rebin_map = {0: 0, 1: 1, 2: 1, 3: 2, 4:3}
+
 # computes rotation matrix through Rodrigues formula as in cv2.Rodrigues
 def Rodrigues(rotvec):
     theta = np.linalg.norm(rotvec)
@@ -188,10 +200,6 @@ def reset_joint_positions(orig_trans, shape, ob, arm_ob, obname, scene, cam_ob, 
     # me holds the vertices after applying the shape blendshapes
     me = ob.to_mesh(scene, True, 'PREVIEW')
 
-    # Note: Varun
-    # This mesh is the blended mesh (i.e. apply height, fatness, etc.
-    # but without the mocap info [standing straight up])
-
     # fill the regressor vertices matrix
     for iiv, iv in enumerate(reg_ivs):
         reg_vs[iiv] = me.vertices[iv].co
@@ -289,7 +297,6 @@ def main():
         log_message("WARNING: stride not specified, using default value 50")
         stride = 50
 
-    # Note: Varun T.
     # Custom checks for specially added fields (gender & body_shape_idx)
     if gender is 'male':
         assert body_shape_idx < 1360
@@ -388,8 +395,7 @@ def main():
     smpl_data = np.load(join(smpl_data_folder, smpl_data_filename))
 
     log_message("Initializing scene")
-    #TODO: Varun. Setting the Camera Distance from the Human Manually Here
-    camera_distance = 4.0
+    camera_distance = 4.0  # Not rendering images so camera distance can be any #
     params['camera_distance'] = camera_distance
     ob, obname, arm_ob, cam_ob = init_scene(scene, params, gender)
 
@@ -412,7 +418,7 @@ def main():
     
     nb_fshapes = len(fshapes)
     
-    # Note Varun T. Force the train split
+    # Force the train split
     fshapes = fshapes[:int(nb_fshapes*0.8)]
     
     shape = fshapes[body_shape_idx]
@@ -462,7 +468,7 @@ def main():
     dict_info['camDist'] = camera_distance
     dict_info['stride'] = stride
 
-    # Note: Added by Varun T. for centering the human.
+    # Note: Necessary for the HumANav dataset to canonically center the human.
     dict_info['rightFootPos'] = np.empty((3, N), dtype='float32')
     dict_info['rightToePos'] = np.empty((3, N), dtype='float32')
     dict_info['leftFootPos'] = np.empty((3, N), dtype='float32')
@@ -488,14 +494,18 @@ def main():
     arm_ob.animation_data_clear()
     cam_ob.animation_data_clear()
 
-    # Note: Varun Extracting Mean Foot and Toe Position
+    # Needed to extracting toe and foot position & direction
     with open('pkl/segm_per_v_overlap.pkl', 'rb') as f:
         vsegm = load(f)
 
     # Where the meshes and centering information is stored
     base_dir = outdir
     vs = np.arange(0, 1.85, .2)
-    velocity_folders = make_velocity_dirs(base_dir, vs)
+
+    # VS corresponds to the approximate velocity of the human (computer heuristically from mocap data), but after examining
+    # the actual data we decided to rebin the estimated human velocity for more realistic visual cues.
+    rebinned_vs = np.array([0., .2, .5, .6])
+    velocity_folders = make_velocity_dirs(base_dir, rebinned_vs)
     pose_ishape_stride_str = 'pose_{:d}_ishape_{:d}_stride_{:d}'.format(idx, ishape, stride)
     body_shape_str = 'body_shape_{:d}'.format(body_shape_idx)
     gender_str = gender
@@ -544,7 +554,7 @@ def main():
             print(human_speed)
             # Compute the closest velocity bin and the corresponding folder name
             # it will be None if the human_speed is not in the range [vmin, vmax]
-            velocity_folder = compute_velocity_folder(human_speed, vs, velocity_folders, vmax=1.85, vmin=0.0)
+            velocity_folder = compute_velocity_folder(human_speed, vs, rebinned_vs, velocity_folders, vmax=1.85, vmin=0.0)
 
             if velocity_folder is not None:
                 human_data_output_folder = os.path.join(velocity_folder,
@@ -563,12 +573,20 @@ def main():
                                          keep_vertex_order=True, group_by_object=True)
     os._exit(0)
 
-def compute_velocity_folder(human_speed, vs, velocity_folders, vmax, vmin):
+def compute_velocity_folder(human_speed, vs, rebinned_vs, rebinned_velocity_folders, vmax, vmin):
     if human_speed > vmax or human_speed < vmin:
         return None
     abs_diff = np.abs(vs-human_speed)
     min_idx = np.argmin(abs_diff)
-    return velocity_folders[min_idx]
+
+    
+    try:
+        rebinned_min_idx = rebin_map[min_idx]
+    except KeyError:
+        # Ignore all heuristically computed velocities above .8 m/s
+        return None
+
+    return rebinned_velocity_folders[rebinned_min_idx]
 
 def make_velocity_dirs(base_dir, vs):
     velocity_folders = []
