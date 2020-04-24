@@ -47,9 +47,6 @@ export BLENDER_PATH='/path/to/blender/blender-2.78-linux-glibc219-x86_64'
 wget https://bootstrap.pypa.io/get-pip.py
 $BLENDER_PATH/2.78/python/bin/python3.5m get-pip.py
 
-### Note installation of pip may fail in Blender 2.78a (due to openssl issues)
-# If this happens Blender 2.79a should work. You can install it from here.
-wget https://download.blender.org/release/Blender2.79/blender-2.79a-linux-glibc219-x86_64.tar.bz2
 # Make sure you have libglu1
 sudo apt-get install libglu1
 
@@ -57,21 +54,52 @@ sudo apt-get install libglu1
 $BLENDER_PATH/2.78/python/bin/python3.5m -m pip install scipy
 ```
 
+Note: Installation of pip may fail in Blender 2.78a (this is a known issue)
+If this happens Blender 2.79a should work. You can install it from here (and then repeat the above steps substituting 2.79a for 2.78).
+```
+wget https://download.blender.org/release/Blender2.79/blender-2.79a-linux-glibc219-x86_64.tar.bz2
+```
+
+
 ## 3. Custom Instructions for HumANav Data Generation
 
 ### Make sure your data is organized correctly
 
 ### Edit the config file
+In the directory /path/to/HumANav/surreal/code update the following line in config
+```
+smpl_data_folder   = '/path/to/HumANav/surreal/download/SURREAL/smpl_data'
+```
 
 ### Test the installation
 ```
 $BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx 2 --ishape 0 --stride 59 --gender female --body_shape 1000 --outdir test_human_mesh_generation
 ```
+The test should create the following directory structure:
+```
+test_human_mesh_generation/
+    - velocity_0.000_m_s/
+    - velocity_0.200_m_s/
+    - velocity_0.500_m_s/
+        - pose_2_ishape_0_stride_59/
+            - body_shape_1000/
+                - female/ # (here i is in [1, 2, 3])
+                    - human_centering_info_i.pkl
+                    - human_mesh_i.mtl
+                    - human_mesh_i.obj
+    - velocity_0.600_m_s/
+        - pose_2_ishape_0_stride_59/
+            - body_shape_1000/
+                - female/  # (here i is in [4, 5, 6, 7, 8, 18, 19])
+                    - human_centering_info_i.pkl 
+                    - human_mesh_i.mtl
+                    - human_mesh_i.obj
+```
+The human_mesh_i.obj (mesh of the corresponding human body), and human_centering_info_i.pkl (information to canonically center and position each human) files will be used in the HumANav dataset.
 
 ### Generate the Human Mesh Models for HumANav
-Note: Full data generation takes around ~7 hours.
+Note: Full data generation takes around ~4 hours & 11 GB of space.
 ```
 sh generate_meshes.sh
 ```
 Human meshes will be saved in /path/to/HumANav/surreal/code/human_meshes
-
