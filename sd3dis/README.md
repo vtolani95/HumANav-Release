@@ -5,9 +5,8 @@ We follow the method outlined in ["Cognitive Mapping and Planning for Visual Nav
 1.  Download the data from the [dataset website](http://buildingparser.stanford.edu/dataset.html).
     1.  [Raw meshes](https://goo.gl/forms/2YSPaO2UKmn5Td5m2). We need the meshes
         which are in the noXYZ folder. Download the tar files and place them in
-        the `stanford_building_parser_dataset_raw` folder. For our example you need to download `area_1_noXYZ.tar`. If you'd like you can also download the other areas which include `area_3_noXYZ.tar`, `area_5a_noXYZ.tar`,
-        `area_5b_noXYZ.tar`, `area_6_noXYZ.tar`,
-        `area_4_noXYZ.tar`.
+        the `stanford_building_parser_dataset_raw` folder. For our example you need to download `area_1_noXYZ.tar`. If you'd like you can also download the other areas which include `area_3_noXYZ.tar`, `area_4_noXYZ.tar`, `area_5a_noXYZ.tar`, `area_6_noXYZ.tar`.
+        
 
 2.  Preprocess the data.
 
@@ -18,16 +17,31 @@ We follow the method outlined in ["Cognitive Mapping and Planning for Visual Nav
         
        
 
-### Download Precomputed Traversable Maps (~TBD GB).
-For experiment reproducibility we include precomputed traversable maps of each of the 6 SBPD areas.
+### Download Precomputed Traversable Maps (~160 KB).
+For experiment reproducibility we include precomputed traversable maps of each of the 6 SBPD areas. Inside the folder stanford_building_parser_dataset, do the following:
 ```
 # To download the data via the command line run the following
 pip install gdown
-gdown https://drive.google.com/a/berkeley.edu/file/d/1rkCVSE3JiJShykIIq2ss3dIL3cUrIeKG
+gdown https://drive.google.com/uc?id=1rkCVSE3JiJShykIIq2ss3dIL3cUrIeKG
 
 # To download the data via your browser visit the following url
 https://drive.google.com/a/berkeley.edu/file/d/1rkCVSE3JiJShykIIq2ss3dIL3cUrIeKG/view?usp=sharing
 
 # Unzip the file LB_WayPtNav_Data.tar.gz
-tar -zxf traveribles.tar.gz -C traversibles
+tar -zxf traversibles.tar.gz
+```
+
+If installed correctly you should have a directory stucture as follows:
+```
+stanford_building_parser_dataset/
+    - mesh/
+        - area1/
+        Optionally
+        - area2/
+        ...
+        - area6
+    - traversibles/
+        - area1/
+        ...
+        - area6/
 ```
