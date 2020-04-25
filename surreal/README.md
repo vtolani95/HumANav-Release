@@ -98,7 +98,7 @@ test_human_mesh_generation/
 The human_mesh_i.obj (mesh of the corresponding human body), and human_centering_info_i.pkl (information to canonically center and position each human) files will be used in the HumANav dataset.
 
 ### Generate the Human Mesh Models for HumANav
-Note: Full data generation takes around ~4 hours & 11 GB of space.
+Note: Full data generation takes around ~4 hours & 5 GB of space.
 ```
 sh generate_meshes.sh
 ```
