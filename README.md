@@ -45,24 +45,8 @@ sudo apt-get install libassimp-dev
 Follow the instructions in surreal/README.md.
 
 #### Download SD3DIS data
-We follow the method outlined in ["Cognitive Mapping and Planning for Visual Navigation"](https://github.com/tensorflow/models/tree/master/research/cognitive_mapping_and_planning/data) to download the SD3DIS data. Please follow steps 1 & 2 in the above link to download and preprocess the data.
+Follow the instructions in sd3dis/README.md
 
-#### Download custom data from Google Drive (~TBD GB).
-To run our code you will need to download data from google drive which includes precomputed traversible maps for building in the S3DIS dataset.
-```
-# To download the data via the command line run the following
-pip install gdown
-TODO: CHANGE THIS LINK
-gdown https://drive.google.com/uc?id=1wpQMm_pfNgPAUduLjUggTSBs6psavJSK
-
-# To download the data via your browser visit the following url
-TODO: CHANGE THIS LINK
-https://drive.google.com/file/d/1wpQMm_pfNgPAUduLjUggTSBs6psavJSK/view?usp=sharing
-
-# Unzip the file LB_WayPtNav_Data.tar.gz
-TODO: CHANGE THIS LINK
-tar -zxf LB_WayPtNav_Data.tar.gz -C DESIRED_OUTPUT_DIRECTORY
-```
 ### Configure HumANav to look for your data.
 HumANav is independent of the actual indoor office environment and human meshes used. In this work we use human meshes exported from the SURREAL dataset and scans of indoor office environments from the S3DIS dataset. However, if you would like to use other meshes, please download and configure them yourself and update the parameters below to point to your data installation.
 
