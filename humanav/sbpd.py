@@ -75,7 +75,7 @@ class Loader():
       """
 
       # Find the closest velocity bin
-      velocity_dirs = os.listdir(self.surreal_params.data_dir)
+      velocity_dirs = [x for x in os.listdir(self.surreal_params.data_dir) if os.path.isdir(os.path.join(self.surreal_params.data_dir, x))]
       velocities_float = [float(velocity_str.split('velocity_')[1].split('_m_s')[0]) for velocity_str in velocity_dirs]
       idx = np.argmin(np.abs(np.array(velocities_float)-speed))
       velocity_dir = os.path.join(self.surreal_params.data_dir, velocity_dirs[idx])

@@ -13,9 +13,5 @@
 # limitations under the License.
 # ==============================================================================
 
-#echo $VIRTUAL_ENV
-#patch $VIRTUAL_ENV/lib/python3.4/site-packages/OpenGL/GLES2/VERSION/GLES2_2_0.py patches/GLES2_2_0.py.patch
-patch /home/vtolani/anaconda3/envs/venv-mpc/lib/python3.6/site-packages/OpenGL/GLES2/VERSION/GLES2_2_0.py patches/GLES2_2_0.py.patch
+patch $CONDA_PREFIX/lib/python3.6/site-packages/OpenGL/GLES2/VERSION/GLES2_2_0.py patches/GLES2_2_0.py.patch
 
-# patch $VIRTUAL_ENV/lib/python3.5/site-packages/OpenGL/platform/ctypesloader.py patches/ctypesloader.py.patch
-# patch /home/somilb/Documents/Projects/Visual_MPC/code/my_env/lib/python3.6/site-packages/OpenGL/GLES2/VERSION/GLES2_2_0.py patches/GLES2_2_0.py.patch
