@@ -15,21 +15,12 @@ Follow the instructions in surreal/README.md.
 Follow the instructions in sd3dis/README.md
 
 ### Configure HumANav to look for your data.
-HumANav is independent of the actual indoor office environment and human meshes used. In this work we use human meshes exported from the SURREAL dataset and scans of indoor office environments from the S3DIS dataset. However, if you would like to use other meshes, please download and configure them yourself and update the parameters below to point to your data installation.
+HumANav is independent of the actual indoor office environment and human meshes used. In this work we use human meshes exported from the SURREAL dataset and scans of indoor office environments from the S3DIS dataset. However, if you would like to use other meshes, please download and configure them yourself and update the parameters in renderer_params.py to point to your data installation.
 
-In ./humanav/renderer_params.py change the following lines
+In ./humanav/renderer_params.py change the following line
 ```
-def get_traversible_dir():
-    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/traversibles'
-
-def get_sbpd_data_dir():
-    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/'
-
-def get_surreal_mesh_dir():
-    return '/PATH/TO/HumANav/surreal/code/human_meshes'
-
-def get_surreal_texture_dir():
-    return '/PATH/TO/HumANav/surreal/code/human_textures'
+def get_path_to_humanav():
+    return '/PATH/TO/HumANav'
 ```
 
 ## Setup
@@ -46,7 +37,6 @@ sudo apt-get install g++
 
 ### Setup A Virtual Environment
 ```
-TODO: Add an environment.yml file & change the name to humanav
 conda env create -f environment.yml
 conda activate humanav
 ```
@@ -65,15 +55,23 @@ In the terminal run:
 sudo apt-get install libassimp-dev
 ```
 
+#### Install HumANav as a pip package
+Follow the steps below to install HumANav as a pip package, so it can be easily integrated with any other codebase.
+```
+cd /PATH/TO/HumANav
+pip install -e .
+```
+
+#### Test the HumANav installation
+
 
 ## Citing This Work
-TODO: CHANGE THIS
-If you use the WayPtNav simulator or algorithms in your research please cite:
+If you find the HumANav dataset useful in your research please cite:
 ```
-@article{bansal2019-lb-wayptnav,
-  title={Combining Optimal Control and Learning for Visual Navigation in Novel Environments},
-  author={Somil Bansal and Varun Tolani and Saurabh Gupta and Jitendra Malik and Claire Tomlin},
-  booktitle={3rd Annual Conference on Robot Learning (CoRL)},  
-  year={2019}
+@article{tolani2020visual,
+  title={Visual Navigation Among Humans with Optimal Control as a Supervisor},
+  author={Tolani, Varun and Bansal, Somil and Faust, Aleksandra and Tomlin, Claire},
+  journal={arXiv preprint arXiv:2003.09354},
+  year={2020}
 }
 ```

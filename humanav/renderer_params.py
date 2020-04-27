@@ -53,14 +53,17 @@ def create_params():
 
     return p
 
+def get_path_to_humanav():
+    return '/PATH/TO/HumANav'
+
 def get_traversible_dir():
-    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/traversibles'
+    return os.path.join(get_path_to_humanav(), 'sd3dis/stanford_building_parser_dataset/traversibles'
 
 def get_sbpd_data_dir():
-    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/'
+    return os.path.join(get_path_to_humanav(),'sd3dis/stanford_building_parser_dataset')
 
 def get_surreal_mesh_dir():
-    return '/PATH/TO/HumANav/surreal/code/human_meshes'
+    return os.path.join(get_path_to_humanav(), 'surreal/code/human_meshes')
 
 def get_surreal_texture_dir():
-    return '/PATH/TO/HumANav/surreal/code/human_textures'
+    return os.path.join(get_path_to_humanav(), 'surreal/code/human_textures')
