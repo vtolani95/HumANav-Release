@@ -6,6 +6,32 @@ We release this codebase as a part of ["Visual Navigation Among Humans with Opti
 For rendering purposes, we use the [Swiftshader](https://github.com/google/swiftshader) rendering engine, a CPU based rendering
 engine for photorealistic visuals (rgb, disparity, surface normal, etc.) from textured meshes used in. We use mesh scans of office buildings from the [Stanford Large Scale 3d Indoor Spaces Dataset (SD3DIS)](http://buildingparser.stanford.edu/dataset.html) , however the rendering engine is independent of the meshes used. In principle, textured meshes from scans of any office buildings can be used. For human meshes we turn to the [SURREAL Dataset](https://www.di.ens.fr/willow/research/surreal/data/) which renders images of synthetic humans in a variety of poses, genders, body shapes, and lighting conditions. Though the meshes themselves are synthetic, the human poses in the SURREAL dataset come from real human motion capture data and contain a variety of actions including running, jumping, dancing, acrobatics, and walking. We focus on the subset of poses in which the human is walking.
 
+## Data
+
+#### Render the Human Meshes
+Follow the instructions in surreal/README.md.
+
+#### Download SD3DIS data
+Follow the instructions in sd3dis/README.md
+
+### Configure HumANav to look for your data.
+HumANav is independent of the actual indoor office environment and human meshes used. In this work we use human meshes exported from the SURREAL dataset and scans of indoor office environments from the S3DIS dataset. However, if you would like to use other meshes, please download and configure them yourself and update the parameters below to point to your data installation.
+
+In ./humanav/renderer_params.py change the following lines
+```
+def get_traversible_dir():
+    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/traversibles'
+
+def get_sbpd_data_dir():
+    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/'
+
+def get_surreal_mesh_dir():
+    return '/PATH/TO/HumANav/surreal/code/human_meshes'
+
+def get_surreal_texture_dir():
+    return '/PATH/TO/HumANav/surreal/code/human_textures'
+```
+
 ## Setup
 ### Install Anaconda, gcc, g++
 ```
@@ -37,23 +63,6 @@ If the script fails there are instructions in apply_patches_3.sh describing how 
 In the terminal run:
 ```
 sudo apt-get install libassimp-dev
-```
-
-### Data
-
-#### Render the Human Meshes
-Follow the instructions in surreal/README.md.
-
-#### Download SD3DIS data
-Follow the instructions in sd3dis/README.md
-
-### Configure HumANav to look for your data.
-HumANav is independent of the actual indoor office environment and human meshes used. In this work we use human meshes exported from the SURREAL dataset and scans of indoor office environments from the S3DIS dataset. However, if you would like to use other meshes, please download and configure them yourself and update the parameters below to point to your data installation.
-
-In ./params/base_data_directory_params.py change the following line
-```
-TODO: CHANGE THIS
-return 'PATH/TO/LB_WayPtNav_Data'
 ```
 
 

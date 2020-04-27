@@ -53,17 +53,14 @@ def create_params():
 
     return p
 
-
 def get_traversible_dir():
-    return '/home/ext_drive/somilb/data/stanford_building_parser_dataset/traversibles'
+    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/traversibles'
 
 def get_sbpd_data_dir():
-    return '/home/ext_drive/somilb/data/stanford_building_parser_dataset/'
+    return '/PATH/TO/HumANav/sd3dis/stanford_building_parser_dataset/'
 
 def get_surreal_mesh_dir():
-    return '/home/ext_drive/somilb/data/surreal/code/surreal/datageneration/visual_mpc_human_meshes_with_velocity_information_v3'
-
+    return '/PATH/TO/HumANav/surreal/code/human_meshes'
 
 def get_surreal_texture_dir():
-    return '/home/ext_drive/somilb/data/surreal/code/surreal/datageneration/smpl_data/visual_mpc_textures'
-
+    return '/PATH/TO/HumANav/surreal/code/human_textures'

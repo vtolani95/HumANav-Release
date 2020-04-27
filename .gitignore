@@ -4,3 +4,8 @@ server/outdir
 tmp/
 *.swp
 *.DS_Store
+sd3dis/stanford_building_parser_dataset/
+sd3dis/stanford_building_parser_dataset_raw/
+surreal/code/human_meshes/
+surreal/code/human_textures/
+surreal/download/SURREAL/
