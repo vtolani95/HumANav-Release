@@ -6,6 +6,8 @@ We release this codebase as a part of ["Visual Navigation Among Humans with Opti
 For rendering purposes, we use the [Swiftshader](https://github.com/google/swiftshader) rendering engine, a CPU based rendering
 engine for photorealistic visuals (rgb, disparity, surface normal, etc.) from textured meshes used in. We use mesh scans of office buildings from the [Stanford Large Scale 3d Indoor Spaces Dataset (SD3DIS)](http://buildingparser.stanford.edu/dataset.html) , however the rendering engine is independent of the meshes used. In principle, textured meshes from scans of any office buildings can be used. For human meshes we turn to the [SURREAL Dataset](https://www.di.ens.fr/willow/research/surreal/data/) which renders images of synthetic humans in a variety of poses, genders, body shapes, and lighting conditions. Though the meshes themselves are synthetic, the human poses in the SURREAL dataset come from real human motion capture data and contain a variety of actions including running, jumping, dancing, acrobatics, and walking. We focus on the subset of poses in which the human is walking.
 
+More information & a live demo of the HumANav Dataset is available on the [project website](https://smlbansal.github.io/LB-WayPtNav-DH/).
+
 ## Data
 
 #### Render the Human Meshes
@@ -44,7 +46,7 @@ conda activate humanav
 #### Patch the OpenGL Installation
 In the terminal from the root directory of the project run the following commands.
 ```
-1. cd mp_env
+1. cd humanav
 2. bash patches/apply_patches_3.sh
 ```
 If the script fails there are instructions in apply_patches_3.sh describing how to manually apply the patch.
@@ -63,7 +65,10 @@ pip install -e .
 ```
 
 #### Test the HumANav installation
-
+```
+cd examples
+PYOPENGL_PLATFORM=egl PYTHONPATH='.' python example1.py
+```
 
 ## Citing This Work
 If you find the HumANav dataset useful in your research please cite:
