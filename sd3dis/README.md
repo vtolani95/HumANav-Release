@@ -5,7 +5,7 @@ We follow the method outlined in ["Cognitive Mapping and Planning for Visual Nav
 1.  Download the data from the [dataset website](http://buildingparser.stanford.edu/dataset.html).
     1.  [Raw meshes](https://goo.gl/forms/2YSPaO2UKmn5Td5m2). We need the meshes
         which are in the noXYZ folder. Download the tar files and place them in
-        the `stanford_building_parser_dataset_raw` folder. For our example you need to download `area_1_noXYZ.tar`. If you'd like you can also download the other areas which include `area_3_noXYZ.tar`, `area_4_noXYZ.tar`, `area_5a_noXYZ.tar`, `area_6_noXYZ.tar`.
+        the `stanford_building_parser_dataset_raw` folder. For our example you need to download `area_3_noXYZ.tar`. If you'd like you can also download the other areas which include `area_1_noXYZ.tar`, `area_4_noXYZ.tar`, `area_5a_noXYZ.tar`, `area_6_noXYZ.tar`.
         
 
 2.  Preprocess the data.
