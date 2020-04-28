@@ -73,6 +73,7 @@ smpl_data_folder   = '/path/to/HumANav/surreal/download/SURREAL/smpl_data'
 
 ### Test the installation
 ```
+cd /path/to/HumANav/surreal/code
 $BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx 2 --ishape 0 --stride 59 --gender female --body_shape 1000 --outdir test_human_mesh_generation
 ```
 The test should create the following directory structure:
@@ -100,6 +101,8 @@ The human_mesh_i.obj (mesh of the corresponding human body), and human_centering
 ### Generate the Human Mesh Models for HumANav
 Note: Full data generation takes around ~4 hours & 5 GB of space.
 ```
+cd /path/to/HumANav/surreal/code
 sh generate_meshes.sh
 ```
 Human meshes will be saved in /path/to/HumANav/surreal/code/human_meshes
+Human textures will be saved in /path/to/HumANav/surreal/code/human_textures
