@@ -1,29 +1,31 @@
 # HumANav
 Welcome to the Human Active Navigation Dataset (HumANav), a codebase for photorealistic simulations of humans in indoor office environments! We are a team of researchers from UC Berkeley and Google Brain.
 
-We release this codebase as a part of ["Visual Navigation Among Humans with Optimal Control as a Supervisor"](https://arxiv.org/pdf/2003.09354.pdf). In this work we show that HumANav enables zero-shot transfer of learning based navigation algorithms directly from simulation to reality. Code for the navigation algorithms can be found HERE. We hope that HumANav can be a useful tool for the broader visual navigation, computer vision, and robotics communities.
+We release this codebase as a part of our work in ["Visual Navigation Among Humans with Optimal Control as a Supervisor"](https://arxiv.org/pdf/2003.09354.pdf). In this work we show that HumANav enables zero-shot transfer of learning based navigation algorithms directly from simulation to reality. We hope that HumANav can be a useful tool for the broader visual navigation, computer vision, and robotics communities.
 
+![HumANav Graphic](https://smlbansal.github.io/LB-WayPtNav-DH/resources/images/dataset.jpg)
 For rendering purposes, we use the [Swiftshader](https://github.com/google/swiftshader) rendering engine, a CPU based rendering
 engine for photorealistic visuals (rgb, disparity, surface normal, etc.) from textured meshes used in. We use mesh scans of office buildings from the [Stanford Large Scale 3d Indoor Spaces Dataset (SD3DIS)](http://buildingparser.stanford.edu/dataset.html) , however the rendering engine is independent of the meshes used. In principle, textured meshes from scans of any office buildings can be used. For human meshes we turn to the [SURREAL Dataset](https://www.di.ens.fr/willow/research/surreal/data/) which renders images of synthetic humans in a variety of poses, genders, body shapes, and lighting conditions. Though the meshes themselves are synthetic, the human poses in the SURREAL dataset come from real human motion capture data and contain a variety of actions including running, jumping, dancing, acrobatics, and walking. We focus on the subset of poses in which the human is walking.
 
+
 More information & a live demo of the HumANav Dataset is available on the [project website](https://smlbansal.github.io/LB-WayPtNav-DH/).
 
-## Data
+## Download and Configure Data
 
-#### Render the Human Meshes
+#### Download SMPL data & Render human meshes
 Follow the instructions in surreal/README.md.
 
 #### Download SD3DIS data
 Follow the instructions in sd3dis/README.md
 
 ### Configure HumANav to look for your data.
-HumANav is independent of the actual indoor office environment and human meshes used. In this work we use human meshes exported from the SURREAL dataset and scans of indoor office environments from the S3DIS dataset. However, if you would like to use other meshes, please download and configure them yourself and update the parameters in renderer_params.py to point to your data installation.
-
 In ./humanav/renderer_params.py change the following line
 ```
 def get_path_to_humanav():
     return '/PATH/TO/HumANav'
 ```
+
+Note: HumANav is independent of the actual indoor office environment and human meshes used. In this work we use human meshes exported from the [SURREAL](https://www.di.ens.fr/willow/research/surreal/data/) dataset and scans of indoor office environments from the [S3DIS](http://buildingparser.stanford.edu/dataset.html) dataset. However, if you would like to use other meshes, please download and configure them yourself and update the parameters in renderer_params.py to point to your data installation.
 
 ## Setup
 ### Install Anaconda, gcc, g++
@@ -64,11 +66,15 @@ cd /PATH/TO/HumANav
 pip install -e .
 ```
 
-#### Test the HumANav installation
+## Test the HumANav installation
+To get you started we've included examples.py, which contains 2 code examples for rendering different image modalities (topview, RGB, Depth) from HumANav.
 ```
 cd examples
-PYOPENGL_PLATFORM=egl PYTHONPATH='.' python example1.py
+PYOPENGL_PLATFORM=egl PYTHONPATH='.' python examples.py
 ```
+The output of examples.py is example1.png and example2.png, both of which are expected to match the image below. If the images match, you have successfully installed & configured HumANav!
+
+![Expected Image](https://smlbansal.github.io/LB-WayPtNav-DH/resources/images/humanav_demo/expected_humanav_setup_image.png)
 
 ## Citing This Work
 If you find the HumANav dataset useful in your research please cite:
