@@ -81,7 +81,7 @@ class Loader():
       velocity_dir = os.path.join(self.surreal_params.data_dir, velocity_dirs[idx])
 
       # Sample A Random Pose
-      poses = os.listdir(velocity_dir)
+      poses = [x for x in os.listdir(velocity_dir) if not x.startswith('.')]
       poses.sort()
       pose = rng.choice(poses)
       pose_dir = os.path.join(velocity_dir, pose)
