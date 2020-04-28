@@ -105,4 +105,5 @@ cd /path/to/HumANav/surreal/code
 sh generate_meshes.sh
 ```
 Human meshes will be saved in /path/to/HumANav/surreal/code/human_meshes
+
 Human textures will be saved in /path/to/HumANav/surreal/code/human_textures
