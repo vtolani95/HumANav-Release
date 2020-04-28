@@ -25,46 +25,9 @@ def create_params():
     return p
 
 
-def test_humanav():
-    p = create_params()
-
-    r = HumANavRenderer.get_renderer(p)
-    dx_cm, traversible = r.get_config()
-
-    # Convert the grid spacing to units of meters. Should be 5cm for the S3DIS data
-    dx_m = dx_cm/100.
-
-    # Compute the real_world extent (in meters) of the traversible
-    extent = [0., traversible.shape[1], 0., traversible.shape[0]]
-    extent = np.array(extent)*dx_m
-
-    # Set the identity seed. This is used to sample a random human identity
-    # (gender, texture, body shape)
-    identity_rng = np.random.RandomState(48)
-
-    # Set the Mesh seed. This is used to sample the actual mesh to be loaded
-    # which reflects the pose of the human skeleton.
-    mesh_rng = np.random.RandomState(20)
-
-    # State of the camera and the human. 
-    # Specified as [x (meters), y (meters), theta (radians)] coordinates
-    camera_pos_13 = np.array([[7.5, 12., -1.3]])
-    human_pos_3 = np.array([8.0, 9.75, np.pi/2.])
-
-    # Speed of the human in m/s
-    human_speed = 0.7
-
-    # Tell the renderer to load a random human at a specified state and speed
-    r.add_human_at_position_with_speed(human_pos_3, human_speed, identity_rng, mesh_rng)
-
-	# Convert from real world units to grid world units
-    camera_grid_world_pos_12 = camera_pos_13[:, :2]/dx_m
-
-    # Render RGB and Depth Images. The shape of the resulting
-    # image is (1 (batch), m (width), k (height), c (number channels))
-    rgb_image_with_human_1mk3 = r._get_rgb_image(camera_grid_world_pos_12, camera_pos_13[:, 2:3], human_visible=True)
-
-    depth_image_with_human_1mk1, _, _ = r._get_depth_image(camera_grid_world_pos_12, camera_pos_13[:, 2:3], xy_resolution=.05, map_size=1500, pos_3=camera_pos_13[0, :3], human_visible=True)
+def plot_images(rgb_image_with_human_1mk3, depth_image_with_human_1mk1,
+                traversible, extent, camera_pos_13, human_pos_3,
+                filename):
 
     fig = plt.figure(figsize=(30, 10))
 
@@ -101,7 +64,58 @@ def test_humanav():
     ax.set_yticks([])
     ax.set_title('Depth')
 
-    fig.savefig('example1.png', bbox_inches='tight', pad_inches=0)
+    fig.savefig(filename, bbox_inches='tight', pad_inches=0)
+
+
+def example1():
+    p = create_params()
+
+    r = HumANavRenderer.get_renderer(p)
+    dx_cm, traversible = r.get_config()
+
+    # Convert the grid spacing to units of meters. Should be 5cm for the S3DIS data
+    dx_m = dx_cm/100.
+
+    # Compute the real_world extent (in meters) of the traversible
+    extent = [0., traversible.shape[1], 0., traversible.shape[0]]
+    extent = np.array(extent)*dx_m
+
+    # Set the identity seed. This is used to sample a random human identity
+    # (gender, texture, body shape)
+    identity_rng = np.random.RandomState(48)
+
+    # Set the Mesh seed. This is used to sample the actual mesh to be loaded
+    # which reflects the pose of the human skeleton.
+    mesh_rng = np.random.RandomState(20)
+
+    # State of the camera and the human. 
+    # Specified as [x (meters), y (meters), theta (radians)] coordinates
+    camera_pos_13 = np.array([[7.5, 12., -1.3]])
+    human_pos_3 = np.array([8.0, 9.75, np.pi/2.])
+
+    # Speed of the human in m/s
+    human_speed = 0.7
+
+    # Load a random human at a specified state and speed
+    r.add_human_at_position_with_speed(human_pos_3, human_speed, identity_rng, mesh_rng)
+
+	# Convert from real world units to grid world units
+    camera_grid_world_pos_12 = camera_pos_13[:, :2]/dx_m
+
+    # Render RGB and Depth Images. The shape of the resulting
+    # image is (1 (batch), m (width), k (height), c (number channels))
+    rgb_image_with_human_1mk3 = r._get_rgb_image(camera_grid_world_pos_12, camera_pos_13[:, 2:3], human_visible=True)
+
+    depth_image_with_human_1mk1, _, _ = r._get_depth_image(camera_grid_world_pos_12, camera_pos_13[:, 2:3], xy_resolution=.05, map_size=1500, pos_3=camera_pos_13[0, :3], human_visible=True)
+
+    # Remove the human from the environment
+    r.remove_human()
+
+    # Plot the rendered images
+    plot_images(rgb_image_with_human_1mk3, depth_image_with_human_1mk1,
+                traversible, extent, camera_pos_13, human_pos_3,
+                'example1.png')
+
 
 if __name__ == '__main__':
-    test_humanav()
+    example1() 

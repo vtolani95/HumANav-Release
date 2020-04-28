@@ -11,17 +11,17 @@ def create_params():
     p.load_meshes = True
     p.load_traversible_from_pickle_file = True
 
-    p.camera_params = DotMap(modalities=['occupancy_grid'],  # occupancy_grid, rgb, or depth
+    p.camera_params = DotMap(modalities=['rgb'],  # rgb or disparity
                              width=64,
-                             height=64,  # the remaining params are for rgb and depth only
-                             z_near=.01,
-                             z_far=20.0,
+                             height=64,
+                             z_near=.01, # near plane clipping distance
+                             z_far=20.0, # far plane clipping distance
                              fov_horizontal=90.,
                              fov_vertical=90.,
                              img_channels=3,
                              im_resize=1.,
                              max_depth_meters=np.inf)
-    
+
     # The robot is modeled as a solid cylinder
     # of height, 'height', with radius, 'radius',
     # base at height 'base' above the ground
@@ -35,7 +35,7 @@ def create_params():
                             sensor_height=80,
                             camera_elevation_degree=-45,  # camera tilt
                             delta_theta=1.0)
-    
+
     # Traversible dir
     p.traversible_dir = get_traversible_dir()
 
