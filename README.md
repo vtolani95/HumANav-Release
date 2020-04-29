@@ -1,7 +1,7 @@
 # HumANav
 Welcome to the Human Active Navigation Dataset (HumANav), a codebase for photorealistic simulations of humans in indoor office environments! We are a team of researchers from UC Berkeley and Google Brain.
 
-We release this codebase as a part of our work in ["Visual Navigation Among Humans with Optimal Control as a Supervisor"](https://arxiv.org/pdf/2003.09354.pdf). In this work we show that HumANav enables zero-shot transfer of learning based navigation algorithms directly from simulation to reality. We hope that HumANav can be a useful tool for the broader visual navigation, computer vision, and robotics communities.
+This codebase is a part of our work in ["Visual Navigation Among Humans with Optimal Control as a Supervisor"](https://arxiv.org/pdf/2003.09354.pdf). In this work we show that HumANav enables zero-shot transfer of learning based navigation algorithms directly from simulation to reality. We hope that HumANav can be a useful tool for the broader visual navigation, computer vision, and robotics communities.
 
 ![HumANav Graphic](https://smlbansal.github.io/LB-WayPtNav-DH/resources/images/dataset.jpg)
 For rendering purposes, we use the [Swiftshader](https://github.com/google/swiftshader) rendering engine, a CPU based rendering
@@ -46,9 +46,9 @@ conda activate humanav
 ```
 
 #### Patch the OpenGL Installation
-In the terminal from the root directory of the project run the following commands.
+In the terminal run the following commands.
 ```
-1. cd humanav
+1. /PATH/TO/HumANav/humanav
 2. bash patches/apply_patches_3.sh
 ```
 If the script fails there are instructions in apply_patches_3.sh describing how to manually apply the patch.
@@ -69,7 +69,7 @@ pip install -e .
 ## Test the HumANav installation
 To get you started we've included examples.py, which contains 2 code examples for rendering different image modalities (topview, RGB, Depth) from HumANav.
 ```
-cd examples
+cd /PATH/TO/HumANav/examples
 PYOPENGL_PLATFORM=egl PYTHONPATH='.' python examples.py
 ```
 The output of examples.py is example1.png and example2.png, both of which are expected to match the image below. If the images match, you have successfully installed & configured HumANav!
