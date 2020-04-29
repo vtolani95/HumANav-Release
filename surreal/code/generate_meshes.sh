@@ -7,13 +7,13 @@ do
 		# Walking humans
 		for i in 2 5 7 8 13 14 24 26 27 46 48 49 59 60 64 65
 		do
-			$BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx $i --ishape 0 --stride 50 --gender $GENDER --body_shape_idx $R --outdir human_meshes_v3
+			$BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx $i --ishape 0 --stride 50 --gender $GENDER --body_shape_idx $R --outdir human_meshes
 		done
 
 		# Stationary humans
 		for i in 132 133 134 135 
 		do
-			$BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx $i --ishape 0 --stride 50 --gender $GENDER --body_shape_idx $R --outdir human_meshes_v3
+			$BLENDER_PATH/blender -b -t 1 -P export_human_meshes.py -- --idx $i --ishape 0 --stride 50 --gender $GENDER --body_shape_idx $R --outdir human_meshes
 		done
 
 	done
@@ -23,4 +23,4 @@ done
 $BLENDER_PATH/blender -b -P verify_human_mesh_generation.py
 
 # Collect the relevant textures needed for the meshes
-$BLENDER_PATH/blender -b -P collect_human_meshes.py
+$BLENDER_PATH/blender -b -P collect_human_textures.py

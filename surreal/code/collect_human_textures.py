@@ -33,7 +33,7 @@ def copy_human_textures(mode, gender, filename):
     # Copy the relevant files over
     [shutil.copy(f, outdir) for f in textures]
 
-def collect_human_meshes():
+def collect_human_textures():
     copy_human_textures('train', 'female', female_train_filename)
     copy_human_textures('train', 'male', male_train_filename)
     copy_human_textures('test', 'female', female_test_filename)
@@ -41,4 +41,4 @@ def collect_human_meshes():
 
 
 if __name__ == '__main__':
-    collect_human_meshes()
+    collect_human_textures()
