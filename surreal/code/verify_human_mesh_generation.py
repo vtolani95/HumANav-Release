@@ -48,10 +48,10 @@ def verify_human_mesh_generation():
 
     # Make sure we have all the expected meshes
     # Needed for the HumANav dataset
-    assert(expected_meshes.issubset(actual_meshes), 'Created dataset does not have all the expected files')
+    assert expected_meshes.issubset(actual_meshes), 'Created dataset does not have all the expected files'
 
     # Make sure there are no extra files
-    assert(len(expected_meshes) == len(actual_meshes), 'Created dataset has extra files. Please delete them')
+    assert len(expected_meshes) == len(actual_meshes), 'Created dataset has extra files. Please delete them'
 
 
 if __name__ == '__main__':
