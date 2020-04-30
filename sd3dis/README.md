@@ -15,6 +15,10 @@ We follow the method outlined in ["Cognitive Mapping and Planning for Visual Nav
         folders `area1`, `area3`, `area4`, `area5a`, `area5b`, `area6`, with
         textures and obj files within each directory. Note: This script assumes you have downloaded data for all 6 areas, if you downloaded data for a subset of the areas, modify preprocess_meshes.sh.
         
+        ```
+        bash preprocess_meshes.sh
+        ```
+        
        
 
 ### Download Precomputed Traversable Maps (~160 KB).
