@@ -18,7 +18,7 @@ We follow the method outlined in ["Cognitive Mapping and Planning for Visual Nav
        
 
 ### Download Precomputed Traversable Maps (~160 KB).
-For experiment reproducibility we include precomputed traversable maps of each of the 6 SBPD areas. Inside the folder stanford_building_parser_dataset, do the following:
+For experiment reproducibility we include precomputed traversable maps of each of the 6 SBPD areas. Inside the folder `stanford_building_parser_dataset`, do the following:
 ```
 # To download the data via the command line run the following
 pip install gdown
