@@ -29,9 +29,8 @@ class HumANavRenderer():
             # for rgb and depth images
             if 'rgb' in self.p.camera_params.modalities or 'disparity' in self.p.camera_params.modalities:
 
-                # TODO (Varun T.): Resizing disparity images messes up the depth measurement.
-                # So if we are rendering disparity we restrict resize to be 1.. At some point
-                # add some functionality to render rgb with a different resize than depth.
+                # Note: Resizing disparity images messes up the depth measurement.
+                # So if we are rendering disparity we restrict resize to be 1.0.
                 if 'disparity' in self.p.camera_params.modalities:
                     assert(self.p.camera_params.im_resize == 1.)
 
@@ -241,7 +240,7 @@ class HumANavRenderer():
         # to the geocentric coordinate system (align the point cloud to the ground plane)
         XYZ = du.make_geocentric(XYZ, robot.sensor_height, robot.camera_elevation_degree)
         
-        # Note(Somil): Added here to get the depth image in the current frame
+        # Note: Added here to get the depth image in the current frame
         # Transform from the ground plane to the robots current
         # location in the map
         XYZ = self.transform_to_current_frame(XYZ[0], pos_3)

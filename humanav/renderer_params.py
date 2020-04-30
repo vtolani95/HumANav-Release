@@ -55,7 +55,7 @@ def create_params():
     return p
 
 def get_path_to_humanav():
-    return '/home/somil/HumANav'
+    return '/PATH/TO/HumANav'
 
 def get_traversible_dir():
     return os.path.join(get_path_to_humanav(), 'sd3dis/stanford_building_parser_dataset/traversibles')
